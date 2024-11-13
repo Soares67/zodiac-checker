@@ -1,0 +1,180 @@
+/* Estilos gerais */
+body {
+    background-color: #fefefe;
+    font-family: Arial, sans-serif;
+    color: #343a40;
+}
+
+/* Barra de navegação */
+.navbar-custom {
+    background: linear-gradient(135deg,#1b263b, #415a77);
+    background-size: 200% 200%; /* Movimentação suave no gradiente */
+    animation: gradient-animation 5s ease infinite; /* Animação */
+    padding: 15px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Animação de gradiente */
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+
+/* Texto da barra de navegação */
+.navbar-brand {
+    color: #050404 !important;
+    font-size: 2em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 0.3s ease; /* Transição para suavizar o movimento */
+}
+
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    background-image: none;
+}
+
+
+
+
+
+
+
+/* Container principal */
+.container {
+    max-width: 600px;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+
+/* Estilos para o formulário */
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+
+}
+
+/* Campo de entrada de data */
+.input-date {
+    border: 1px solid #B5BD89;
+    border-width: 3px;
+    border-radius: 8px;
+    padding: 10px;
+    transition: border-color 0.3s ease;
+}
+
+.input-date {
+    transition: all 0.1s ease;
+}
+
+.input-date::placeholder {
+    color: #616161bc;
+    font-style: italic;
+}
+
+.input-date:focus {
+    border-color: #DB5375;
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    transform: scale(1.01);
+}
+
+/* Estilos do botão de envio */
+.btn-submit {
+    background-color: #DB5375;
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-submit:hover {
+    background-color: #EC9192;
+    transform: translateY(-2px);  /* Efeito de elevação ao passar o mouse */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Estilos para os resultados */
+.text-center h1 {
+    color: #729EA1;
+    font-weight: bold;
+}
+
+.text-center p {
+    font-size: 1.1em;
+    color: #343a40;
+}
+
+/* Estilos do botão de voltar */
+.btn-secondary {
+    background-color: #B5BD89;
+    border-color: #B5BD89;
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.btn-secondary:hover {
+    background-color: #729EA1;
+    border-color: #729EA1;
+}
+
+
+
+
+
+/* Fundo de partículas*/
+.particles-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events:none;
+    background: linear-gradient(180deg, #0d1b2a, #1b263b, #415a77, #778da9, #e0e1dd);
+    background-size: 200% 200%;
+    animation: color-shift 15s ease infinite; /* Animação de mudança de cor */
+}
+
+/* Animação do gradiente*/
+@keyframes color-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
