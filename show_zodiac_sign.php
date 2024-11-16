@@ -1,8 +1,13 @@
 <?php include('layouts/header.php'); ?>
+<script src="assets/js/particles.js"></script>
+
+<!-- Fundo de partículas -->
+<div id="particles-js" class="particles-background"></div>
 
 <?php
 // Receber a data de nascimento enviada pelo formulário
 $data_nascimento = $_POST['data_nascimento'] ?? null;
+$signoEncontrado = null;
 
 if ($data_nascimento) {
     // Verificar se a data de nascimento está no formato correto
@@ -16,9 +21,7 @@ if ($data_nascimento) {
         // Carregar o arquivo XML com os dados dos signos
         $signos = simplexml_load_file("signos.xml");
 
-        $signoEncontrado = null;
-
-        // Iterar pelos signos no XML para encontrar o signo correspondente
+        // Encontrar o signo correspondente
         foreach ($signos->signo as $signo) {
             $dataInicio = DateTime::createFromFormat('d/m', (string)$signo->dataInicio);
             $dataInicio->setDate(2000, $dataInicio->format('m'), $dataInicio->format('d'));
@@ -26,27 +29,49 @@ if ($data_nascimento) {
             $dataFim = DateTime::createFromFormat('d/m', (string)$signo->dataFim);
             $dataFim->setDate(2000, $dataFim->format('m'), $dataFim->format('d'));
 
-            // Verificar se a data de nascimento está entre o início e o fim do signo
-            if ($dataNascimentoUsuario >= $dataInicio && $dataNascimentoUsuario <= $dataFim) {
-                $signoEncontrado = $signo;
-                break;
+            // Caso o signo atravesse o final do ano (por exemplo, Capricórnio)
+            if ($dataInicio > $dataFim) {
+                // Verificar se a data de nascimento está entre o início do signo e o final do ano
+                if ($dataNascimentoUsuario >= $dataInicio || $dataNascimentoUsuario <= $dataFim) {
+                    $signoEncontrado = $signo;
+                    break;
+                }
+            } else {
+                // Verificar se a data de nascimento está entre o início e o fim do signo
+                if ($dataNascimentoUsuario >= $dataInicio && $dataNascimentoUsuario <= $dataFim) {
+                    $signoEncontrado = $signo;
+                    break;
+                }
             }
         }
-
-        // Exibir o signo correspondente
-        if ($signoEncontrado) {
-            echo "<h1 class='text-center'>{$signoEncontrado->signoNome}</h1>";
-            echo "<p class='text-center'>{$signoEncontrado->descricao}</p>";
-        } else {
-            echo "<p class='text-center text-danger'>Signo não encontrado.</p>";
-        }
-    } else {
-        echo "<p class='text-center text-danger'>Data de nascimento inválida. Por favor, use o formato dd/mm/aaaa.</p>";
-    }
-} else {
-    echo "<p class='text-center text-danger'>Data de nascimento não fornecida.</p>";
+    } 
 }
 ?>
+
+<div class="result-border">
+    <div class="result-container" 
+        <?php if ($signoEncontrado): ?>
+            style="background-image: url('assets/imgs/<?php echo strtolower($signoEncontrado->signoNome); ?>.jpg');"
+        <?php endif; ?>
+    >
+        <div class="result-header">
+            <?php
+                if ($signoEncontrado) {
+                    echo "<h1>{$signoEncontrado->signoNome}</h1>";
+                }
+            ?>
+        </div>
+        <div class="result-description">
+            <?php
+                if ($signoEncontrado) {
+                    echo "<p>{$signoEncontrado->descricao}</p>";
+                } else {
+                    echo "<p class='text-danger'>Data de nascimento inválida ou signo não encontrado.</p>";
+                }
+            ?>
+        </div>
+    </div>
+</div>
 
 <div class="text-center mt-4">
     <a href="index.php" class="btn btn-secondary">Voltar</a>
